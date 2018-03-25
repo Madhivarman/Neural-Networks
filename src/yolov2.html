@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+      <!--integrating math.js for equation support-->
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-MML-AM_CHTML' async></script>
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <nav class="red darken-4 lighten-1" role="navigation" style="height:150px;">
+      </nav>
+      <!--main content goes here-->
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m6 l12" style="margin-top:-90px;">
+            <div class="icon-block card hoverable waves-effect waves-block waves-indigo lighten-5">
+                        <h5 class="center">YOLO9000 Faster,Better Object detector</h5>
+                        <div class="divider"></div>
+                        <div style="margin-left:10px;">
+                          <h5>Why YOLO?</h5>
+                          <p style="font-size:17px;">
+                            <b><i>You only Look once</i></b>&nbsp; distinguished network that perform classification and detection.Before YOLO, we used <i>Conv-nets</i>&nbsp;also known as convolutional neural network to train the model to visualize the image and do classification. Conv-nets, only able to classify,if the image has one object. What if image has multiple objects? A single neural network predicts the bounding boxes and class probabilities directly from the full images in one evaluation. The whole detection pipeline is a single network which it can be optimized end-to-end directly on detection performance.To detect
+                          </p>
+                          <h5>Terms to be known</h5>
+                          <p>Before going through this article, I suggest you to watch this tutorial for better understanding. <a href="https://www.youtube.com/watch?v=ArPaAX_PhIs&list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF">[Tutorial]</a></p>
+                          <p style="font-size: 17px;">Before going to the architecture, we need to know the terms for better understanding the model.
+                          <ol style="padding-left:15px;font-size:17px;">
+                            <li><b>Anchorbox</b> also known as <i>bounding box</i> which is used to locate the object in the image</li>
+                            <li><b>Localisation</b> predicting class of an object with a bounding box</li>
+                            <li><b>Batch Normalisation</b> normalizing the input layer by adjusting and scaling the activations to speed up learning.In general batch normalisation reduces the amount by what hidden unit value shifts around.<br/>
+                            <i>For example:</i>&nbsp; we haved trained a model on black cat images. So, now if we apply a network on some other colored cats our network won't perform well. The training and prediction sets are both cats but they differ in color. If an algorithm learns some <b>X to Y</b> mapping, and if the distribution of X changes, then we need to retrain the learning algorithm by trying to align the distribution of X with respect to Y.&nbsp;<a href="https://www.youtube.com/watch?v=nUUqwaxLnWs">Click here to dig deeper</a></li>
+                            <li><b>IoU</b> also known as <i>Intesection over Union</i> during training period, the model may predict lot of bounding box predictions. we eliminate the unwanted bounding box using<b><i>Non-max supression</i></b> to get the bounding box more accurate.$$x = {area\ of\ overlap \over area\ of\ intersection}.$$
+                            <img src="../img/yolov2/iou_examples.png" style="width:100%">
+                            </li>
+
+                            <li><b>Non-Max supression</b> we must tune the algorithm to pick the perfect bounding box. During training, the algorithm pick several bounding box around the object. By eliminating all the bounding box which IoU value is lesser than 0.5 and eliminating low  probabilites associated with each box. $$IoU={IoU\ < 0.5}.$$ </li>
+                            <li><b>mAP</b> also known as <i>mean Average Precission</i> which we calculate mean value for Average Precission.$$precision = {| {relevant_features} \cap {retrieved_features}| \over |{retrieved_features}|}.$$</li>
+                          </ol>
+                          </p>
+                          <h5>Network Architecture</h5>
+                          <img src="../img/yolov2/yolov1.jpeg" style="width:100%;height:100%;">
+                          <p style="font-size: 17px;">
+                              If you really want to dig deeper in this architecture  <a href="https://arxiv.org/abs/1506.02640">See the full paper</a>&nbsp;
+                              <p style="font-size: 20px;"><b>Limitations of YOLO</b>
+                              <ol style="padding-left:15px;font-size:17px";>
+                                  <li>YOLO imposes strong spatial constraints on bounding
+                                      box predictions since each grid cell only predicts two boxes
+                                      and can only have one class. This spatial constraint lim-
+                                      its the number of nearby objects that our model can pre-
+                                      dict.
+                                  </li>
+                                  <li>
+                                    It struggles to generalize to objects in new or unusual
+                                    aspect ratios or configurations
+                                  </li>
+                              </ol>
+                              </p>
+                          <img src="../img/yolov2/yolov1_comp.png" style="width:50%;height:50%;margin-left: 20%;">
+                          </p>
+                          <div class="divider"></div>
+                          <!--YOLOv2 architecture-->
+                          <p style="font-size: 17px;">
+                            <h5>YOLOV2 Architecture</h5>
+                            <img src="../img/yolov2/yolo_v2.jpg" style="width:90%;height:90%;">
+                            <br/>
+                            YOLO suffers from variety of shortcomings relative to the state-of-art detection system. Error analysis of YOLO compared to Faster-RCNN shows that YOLO makes significant localisation errors.Furthermore, YOLO has relatively low recall compared to other State-of-art detection system.
+                            <br/><br/>
+                            <img src="../img/yolov2/fcn_short.gif" style="width:90%;height:20%">
+                            <br/>
+                            <i><b>[Image source:https://github.com/leetenki/YOLOv2/blob/master/YOLOv2.md]</b></i><br/>
+                            The following features are added in YOLOV2 to increase mAP and localisation.
+                            <ol>
+                              <li><b>Batch Normalisation:</b><br/>Batch normalisation leads to significant improvements in convergence while eliminating the need for other forms of regularization. By adding batch normalisation the model improves <i>2%</i> improvement in mAP.It removes dropout from the model without overfitting.</li>
+                              <li><b>High Resolution Classifier:</b><br/>All other detection methods use classifier pre-trained on Imagenet. Most detection system operates the image on resolution <i>224 x 224</i>. YOLO trains the classifier network for <i>224 x 224</i> and increase the resolution to <i>448</i> for detection. So, the network simultaneously switch to learning object detection and adjust to the new input resolution. For YOLOv2 the classification network at full <i>448 x 448</i> resolution for 10 epochs.This gives the network  time to adjust its filters to work better on high resolution input.  This method increase of almost <i>4%</i> mAP.</li>
+                              <li><b>Convolutional with Anchor boxes:</b><br/>YOLO predicts the bounding box directly using fully connected layer on top of convolutional feature extractor. YOLOV2 eliminates one pooling layer to make the the output of the network's convolutional layers high resolution. YOLOv2 shrinks the network to operate on <i>416</i> input images instead <i>448 X 448</i>. By doing this, there will be odd number of locations in the feature map, so there will single center cell.</li>
+                              <li><b>Direct location prediction:</b>
+                              Anchor prediction in YOLO raise issue: <i>Model instability</i> especially during each iterations.Instability comes from predicting the (x,y) location of the box.In region proposal networks the network predicts values tx and
+                              ty and the (x, y) center coordinates are calculated as:
+                              $$x = {(tx * w) - x}$$
+                              $$y = {(ty * w) - y}$$
+                              For example, a prediction of tx = 1 would shift the box
+                              to the right by the width of the anchor box, a prediction of
+                              tx = −1 would shift it to the left by the same amount.This formulation is unconstrained so any anchor box can end up at any point in the image, regardless of what loca-tion predicted the box. With random initialization the model takes a long time to stabilize to predicting sensible offsets.<br/>
+                              Instead of predicting offsets we follow the approach of YOLO and predict location coordinates relative to the location of the grid cell. This bounds the ground truth to fall between 0 and 1. We use a logistic activation to constrain the network’s predictions to fall in this range.<a href=#bbox>[see the image]</a>
+                              </li>
+                              <li><b>Fine Grained Features:</b><br/>This modified YOLO predicts detections on a 13 × 13 feature map. While this is sufficient for large objects, it may benefit from finer grained features for localizing smaller objects.By adding extra layer called <i>Passthrough layer</i> which concatenates the high resolution features with low resolution features by stacking adjacent features into different channels.This turn the network <i>26x26x512</i>&nbsp;feature map into <i>13x13x2048</i> feature map, which can be concatenated with the original features.This gives a modest <i>1%</i> performance increase.</li>
+                              <li><b>Multi-Scale Training:</b><br/>
+                              The original YOLO uses an input resolution of <i>448 × 448</i>. With the addition of anchor boxes we changed the resolution to <i>416×416</i>.Instead of fixing the input image size, changing the network every few iterations. Every 10 batches, network randomly chooses a new image dimension size. Since the model downsamples by a factor of 32, we pull from the following multiples of 32: {320, 352, ..., 608}. Thus the smallest option is 320 × 320 and the largest is 608 × 608. We resize the network to that dimension and continue training.</li>
+                            </ol>
+                          </p>
+                          <p style="font-size: 17px;">
+                            <h5>Predicting Bounding box and Confidence of each box</h5>
+                            <p>In YOLOV2, the output of the final layer becomes the feature map of <i>n x n</i> depending on the size of the input image corresponds to each grid  when the input images is divided into <i>nxn</i> sizes.Each grid has a bounding box of a certain aspect ratio called a plurality of anchors, and YOLOv 2 predicts the center coordinates <i>(x, y)</i> of each anchor and the scale<i>(w, h) </i>of width and height. In addition, each anchor box has a parameter called confidence, which represents the probability that an object exists in the box.</p>
+                            <img src="../img/yolov2/yolov2_prediction_box.png" style="width:100%"><br/>
+                            In above figure, the thickness of the line of each box represents the height of confidence, and the longest box of thicker lines means that there is object detection.
+                          </p>
+                          The major task in Object detection is specifying the bounding box correctly.
+                          Each bounding box has the parameters <i>(x,y,w,h)</i>. Width and height are calculated by <i>difference between object detected and grid cell.</i>
+                          <img src="../img/yolov2/box_wh.png" style="width:350px;height:350px;" id="bbox"><br/>
+                          <h5>Dimensional Clusters:</h5>
+                          <p> In YOLO, the prior box are hand picked.The network can learn
+                              to adjust the boxes appropriately but if we pick better priors
+                              for the network to start with we can make it easier for the
+                              network to learn to predict good detections.Instead of choosing hand priors, YOLOv2 run <i>K-means Algorithm</i> to cluster the prior box.Using dimension clusters along with directly predicting the bounding box center location improves YOLO by almost <i>5%</i> over the version with anchor boxes.</p>
+                          <img src="../img/yolov2/kdimen.png" style="width:80%;height: 50%;"><br/>
+                          <b><i>[Image Source: Google]</i></b>
+                          <h5>Darknet-19</h5>
+                          <p>A new classification model built in base of YOLOv2.The model contain <i>19 convolutional layer,5 maxpool layer.</i></p>
+                          <img src="../img/yolov2/darknet.png" style="margin-left:25%"><br/>
+                          <p>
+                            Darket19 Real time Implementation Code:
+                          <a href="http://pjreddie.com/yolo9000/">[code is available here]</a><br/>
+                            Training Your Own YOLOV2 from Scratch:
+                          <a href="https://github.com/WojciechMormul/yolo2">[Training YOLOV2 from scratch]</a>
+                          </p>
+                          <h5>References</h5>
+                          <ol>
+                            <li>Andrew-ng Course: <a href="https://www.youtube.com/watch?v=ArPaAX_PhIs&list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF">[Introduction to Convolutional networks]</a></li>
+                            <li>Original Paper: <a href="https://arxiv.org/abs/1506.02640">[Paper]</a></li>
+                            <li>Image Source: <a href="https://github.com/leetenki/YOLOv2/blob/master/YOLOv2.md">[YOLOv2 using Pretrained model weights]</a></li>
+                          </ol>
+                          <p></p>
+                        </div>
+                </div>
+          </div>
+        </div>
+      </div>
+      <!--JavaScript at end of body for optimized loading-->
+      <script type="text/javascript" src="../js/materialize.min.js"></script>
+    </body>
+  </html>
