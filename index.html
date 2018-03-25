@@ -15,6 +15,9 @@
           min-height: 100vh;
           flex-direction: column;
       }
+      main{
+            flex: 1 0 auto;
+      }
     </style>
     <body>
     	<nav class="red darken-4 lighten-1" role="navigation">
@@ -26,42 +29,44 @@
     			</ul>
     	</nav>
     	<!--main body contact-->
-      <div>
+      <div class="main">
         <div class="section no-pad-bot" id="index-banner">
-        <div class="container">
-          <br></br>
-          <h1 class="center  red-text darken-3" style="font-size: 25pt;">Deep Learning and Neural networks</h1>
-          <div class="row center">
-            <h5 class="header col s12 light">
-              Artificial Intelligence is not about building a mind it's about the improvement of tools to solve problems.
-            </h5>
+          <div class="container">
+            <br></br>
+            <h1 class="center  red-text darken-3" style="font-size: 25pt;">Deep Learning and Neural networks</h1>
+            <div class="row center">
+              <h5 class="header col s12 light">
+                Artificial Intelligence is not about building a mind it's about the improvement of tools to solve problems.
+              </h5>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="row center">
-         <a href="#onclick-container" id="download-button" class="btn-large waves-effect waves-light  red darken-4">Get Started</a>
-      </div>
+        <div class="row center">
+           <a href="#onclick-container" id="download-button" class="btn-large waves-effect waves-light  red darken-4">Get Started</a>
+        </div>
 
-      <!--Cards starts from here-->
-      <div class="container" id="onclick-container">
-        <h4>Topics</h4>
-        <div class="divider"></div>
-        <div class="row">
-          <div class="col s12 m6 l6">
-            <div class="icon-block card hoverable waves-effect waves-block waves-red lighten-5" onclick="location.href='src/yolov2.html'">
-                        <h5 class="center red-text darken-3">YOLO9000 Faster,Better Object detector</h5>
-                        <div class="divider"></div>
+        <!--Cards starts from here-->
+        <div class="container" id="onclick-container">
+          <h4>Topics</h4>
+          <div class="divider"></div>
+          <div class="row">
+            <div class="col s12 m6 l6">
+              <div class="icon-block card hoverable waves-effect waves-block waves-red lighten-5" onclick="location.href='src/yolov2.html'">
+                          <h5 class="center red-text darken-3">YOLO9000 Faster,Better Object detector</h5>
+                          <div class="divider"></div>
 
-                        <p class="" style="padding: 10px">
-                          A start-of-art, real-time object detection system that can detect over 9000 object classes.In this article,we'll see basic terms, network architecture, Improved method, advantages and code.
-                          <a href="src/yolov2.html">See full article</a>
-                        </p>
+                          <p class="" style="padding: 10px">
+                            A start-of-art, real-time object detection system that can detect over 9000 object classes.In this article,we'll see basic terms, network architecture, Improved method, advantages and code.
+                            <a href="src/yolov2.html">See full article</a>
+                          </p>
                 </div>
+            </div>
           </div>
         </div>
+
       </div>
-      </div>
+      <!--Footer content start here-->
        <footer class="page-footer red darken-4 lighten-1">
           <div class="footer-copyright red darken-4 lighten-1">
             <div class="container">
