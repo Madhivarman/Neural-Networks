@@ -71,17 +71,17 @@
                                   </li>
                               </ol>
                               </p>
-                          <img src="../img/yolov2/yolov1_comp.png" style="width:50%;height:50%;margin-left: 20%;">
+                          <img class="materialboxed" src="../img/yolov2/yolov1_comp.png" style="width:50%;height:50%;margin-left: 20%;">
                           </p>
                           <div class="divider"></div>
                           <!--YOLOv2 architecture-->
                           <p style="font-size: 17px;">
                             <h5>YOLOV2 Architecture</h5>
-                            <img src="../img/yolov2/yolo_v2.jpg" style="width:90%;height:90%;">
+                            <img class="materialboxed" src="../img/yolov2/yolo_v2.jpg" style="width:90%;height:90%;">
                             <br/>
                             YOLO suffers from variety of shortcomings relative to the state-of-art detection system. Error analysis of YOLO compared to Faster-RCNN shows that YOLO makes significant localisation errors.Furthermore, YOLO has relatively low recall compared to other State-of-art detection system.
                             <br/><br/>
-                            <img src="../img/yolov2/fcn_short.gif" style="width:90%;height:20%">
+                            <img class="materialboxed" src="../img/yolov2/fcn_short.gif" style="width:90%;height:20%">
                             <br/>
                             <i><b>[Image source:https://github.com/leetenki/YOLOv2/blob/master/YOLOv2.md]</b></i><br/>
                             The following features are added in YOLOV2 to increase mAP and localisation.
@@ -112,17 +112,17 @@
                           </p>
                           The major task in Object detection is specifying the bounding box correctly.
                           Each bounding box has the parameters <i>(x,y,w,h)</i>. Width and height are calculated by <i>difference between object detected and grid cell.</i>
-                          <img src="../img/yolov2/box_wh.png" style="width:350px;height:350px;" id="bbox"><br/>
+                          <img class="materialboxed" src="../img/yolov2/box_wh.png" style="width:350px;height:350px;" id="bbox"><br/>
                           <h5>Dimensional Clusters:</h5>
                           <p> In YOLO, the prior box are hand picked.The network can learn
                               to adjust the boxes appropriately but if we pick better priors
                               for the network to start with we can make it easier for the
                               network to learn to predict good detections.Instead of choosing hand priors, YOLOv2 run <i>K-means Algorithm</i> to cluster the prior box.Using dimension clusters along with directly predicting the bounding box center location improves YOLO by almost <i>5%</i> over the version with anchor boxes.</p>
-                          <img src="../img/yolov2/kdimen.png" style="width:80%;height: 50%;"><br/>
+                          <img class="materialboxed" src="../img/yolov2/kdimen.png" style="width:80%;height: 50%;"><br/>
                           <b><i>[Image Source: Google]</i></b>
                           <h5>Darknet-19</h5>
                           <p>A new classification model built in base of YOLOv2.The model contain <i>19 convolutional layer,5 maxpool layer.</i></p>
-                          <img src="../img/yolov2/darknet.png"><br/>
+                          <img class="materialboxed" src="../img/yolov2/darknet.png"><br/>
                           <p>
                             Darket19 Real time Implementation Code:
                           <a href="http://pjreddie.com/yolo9000/">[code is available here]</a><br/>
@@ -142,6 +142,11 @@
         </div>
       </div>
       <!--JavaScript at end of body for optimized loading-->
+      <script>
+         $(document).ready(function(){
+            $('.materialboxed').materialbox();
+          });
+      </script>
       <script type="text/javascript" src="../js/materialize.min.js"></script>
     </body>
   </html>
